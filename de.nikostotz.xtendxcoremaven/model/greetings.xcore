@@ -1,0 +1,26 @@
+@GenModel(
+	modelDirectory="de.nikostotz.xtendxcoremaven/xcore-gen",
+	operationReflection="false",
+	complianceLevel="8.0"
+)
+
+package de.nikostotz.xtendxcoremaven.greetings
+
+import de.nikostotz.xtendxcoremaven.persons.persons.IPerson
+import de.nikostotz.xtendxcoremaven.greetings.helper.GreetingsHelper
+
+annotation "http://www.eclipse.org/emf/2002/GenModel" as GenModel
+
+class AllGreetings {
+	contains IPerson[] persons
+	contains Greeting[] greetings
+	
+	op String compileAllGreetings() {
+		GreetingsHelper.compileAllGreetings(this)
+	}
+}
+
+class Greeting {
+	String message
+	refers IPerson person
+}

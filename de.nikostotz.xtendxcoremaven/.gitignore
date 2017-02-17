@@ -1,0 +1,5 @@
+bin/*
+target
+emf-gen/*
+xcore-gen/*
+xtend-gen/*

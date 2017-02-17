@@ -1,0 +1,35 @@
+module GenerateGenModel
+
+var projectName = "de.nikostotz.xtendxcoremaven"
+var rootPath = ".."
+
+Workflow {
+	bean = org.eclipse.xtext.ecore.EcoreSupport {}
+	bean = org.eclipse.emf.codegen.ecore.xtext.GenModelSupport {}
+	bean = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+	bean = org.eclipse.xtend.core.XtendStandaloneSetup {}
+	
+	bean = org.eclipse.emf.mwe.utils.StandaloneSetup {
+		platformUri = "${rootPath}"
+		scanClassPath = true
+	}
+	    
+	component = org.eclipse.xtext.mwe.Reader {
+		register = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
+		register = org.eclipse.xtend.core.XtendStandaloneSetup {}
+		register = org.eclipse.xtext.ecore.EcoreSupport {}
+		register = org.eclipse.emf.codegen.ecore.xtext.GenModelSupport {}
+		
+		path = "model"
+		path = "src"
+		
+		loadFromResourceSet =  {
+			
+		}
+	}
+	
+	component = org.eclipse.emf.mwe2.ecore.EcoreGenerator {
+		genModel = "platform:/resource/${projectName}/model/persons.genmodel"
+		srcPath = "platform:/resource/${projectName}/emf-gen"
+	}
+}

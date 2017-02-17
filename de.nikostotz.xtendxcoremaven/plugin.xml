@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated greetings -->
+      <package
+            uri="de.nikostotz.xtendxcoremaven.greetings"
+            class="de.nikostotz.xtendxcoremaven.greetings.GreetingsPackage"
+            genModel="model/greetings.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated base -->
+      <package
+            uri="de.nikostotz.xtendxcoremaven.base"
+            class="de.nikostotz.xtendxcoremaven.base.BasePackage"
+            genModel="model/base.xcore"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated persons -->
+      <package
+            uri="de.nikostotz.xtendxcoremaven.persons"
+            class="de.nikostotz.xtendxcoremaven.persons.persons.PersonsPackage"
+            genModel="model/persons.genmodel"/>
+   </extension>
+
+</plugin>

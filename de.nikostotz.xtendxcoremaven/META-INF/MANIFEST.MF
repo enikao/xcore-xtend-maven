@@ -6,15 +6,13 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Activator: de.nikostotz.xtendxcoremaven.XtendXcoreMavenPlugin
+Bundle-Activator: de.nikostotz.xtendxcoremaven.XtendXcoreMavenActivator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- de.nikostotz.xtendxcoremaven;visibility:=reexport,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.emf.ecore.xcore.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: de.nikostotz.xtendxcoremaven.greetings,
- de.nikostotz.xtendxcoremaven.greetings.impl,
+Export-Package: de.nikostotz.xtendxcoremaven.greetings.impl,
  de.nikostotz.xtendxcoremaven.greetings.util,
  de.nikostotz.xtendxcoremaven.base,
  de.nikostotz.xtendxcoremaven.base.impl,

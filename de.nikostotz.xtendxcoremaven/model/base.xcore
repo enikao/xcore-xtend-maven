@@ -1,9 +1,17 @@
 @GenModel(
+	// This sets the target directory where to put the generated classes.
+	// Make sure NOT to start or end with a slash!
+	// Doing so would lead to issues either with Eclipse builder, MWE2 launch, or Maven 
 	modelDirectory="de.nikostotz.xtendxcoremaven/xcore-gen",
+
+	// required to fix an issue with xcore (see https://www.eclipse.org/forums/index.php/t/367588/)
 	operationReflection="false"
 )
 package de.nikostotz.xtendxcoremaven.base
 
+// This enables usage of the @GenModel annotation above. The annotation would work without
+// this line in Eclipse, but Maven would fail.
+// (WorkflowInterruptedException: Validation problems: GenModel cannot be resolved.)
 annotation "http://www.eclipse.org/emf/2002/GenModel" as GenModel
 
 interface INamedElement {

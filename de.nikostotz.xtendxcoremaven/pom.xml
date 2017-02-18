@@ -2,16 +2,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>xtext</groupId>
+	<groupId>de.nikostotz.xtendxcoremaven</groupId>
 	<version>1.0.0-SNAPSHOT</version>
-	<artifactId>xtext</artifactId>
+	<artifactId>de.nikostotz.xtendxcoremaven</artifactId>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<!-- Java version -->
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
+		<!-- Java version, will be honored by Xcore / Xtend -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 
 		<!-- Xtend / Xcore -->
 		<core-resources-version>3.7.100</core-resources-version>
@@ -63,14 +63,28 @@
 				<configuration>
 					<filesets>
 						<fileset>
+							<excludes>
+								<exclude>.dummy.txt</exclude>
+							</excludes>
 							<directory>emf-gen</directory>
+						</fileset>
+						<fileset>
+							<excludes>
+								<exclude>.dummy.txt</exclude>
+							</excludes>
 							<directory>xtend-gen</directory>
+						</fileset>
+						<fileset>
+							<excludes>
+								<exclude>.dummy.txt</exclude>
+							</excludes>
 							<directory>xcore-gen</directory>
 						</fileset>
 					</filesets>
 				</configuration>
 			</plugin>
 
+			<!-- Adds the generated sources to the compiler input -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -83,6 +97,8 @@
 							<goal>add-source</goal>
 						</goals>
 						<configuration>
+							<!-- This should be in sync with xtext-maven-plugin//source-roots, 
+								except for /model directory -->
 							<sources>
 								<source>${basedir}/emf-gen</source>
 								<source>${basedir}/xcore-gen</source>
@@ -93,6 +109,7 @@
 				</executions>
 			</plugin>
 
+			<!-- Generates the Ecore model via MWE2 -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -262,6 +279,7 @@
 				</dependencies>
 			</plugin>
 
+			<!-- Generates the Xtend and Xcore models -->
 			<plugin>
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>xtext-maven-plugin</artifactId>
@@ -300,11 +318,19 @@
 
 						</language>
 					</languages>
+					<!-- This should be in sync with build-helper-maven-plugin//sources, 
+						except for /model directory -->
 					<sourceRoots>
 						<root>${basedir}/src</root>
-						<root>${basedir}/model</root>
 						<root>${basedir}/emf-gen</root>
+						<!-- Note that we include the /model path here although it's not part 
+							of the source directories in Eclipse or Maven -->
+						<root>${basedir}/model</root>
 					</sourceRoots>
+					<!-- This does not work currently, as we can see by the missing lambda 
+						in generated code for GreetingsHelper.compileAllGreetings(). It does work, 
+						however, for xtend-maven-plugin. -->
+					<javaSourceVersion>1.8</javaSourceVersion>
 				</configuration>
 				<dependencies>
 					<dependency>

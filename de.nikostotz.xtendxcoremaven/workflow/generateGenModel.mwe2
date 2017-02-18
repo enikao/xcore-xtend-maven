@@ -4,30 +4,42 @@ var projectName = "de.nikostotz.xtendxcoremaven"
 var rootPath = ".."
 
 Workflow {
-	bean = org.eclipse.xtext.ecore.EcoreSupport {}
-	bean = org.eclipse.emf.codegen.ecore.xtext.GenModelSupport {}
+	// This configures the supported model types for EcoreGenerator.
+	// Order is important.
+	// Should be the same list as in Reader below.
 	bean = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
 	bean = org.eclipse.xtend.core.XtendStandaloneSetup {}
+	bean = org.eclipse.xtext.ecore.EcoreSupport {}
+	bean = org.eclipse.emf.codegen.ecore.xtext.GenModelSupport {}
 	
 	bean = org.eclipse.emf.mwe.utils.StandaloneSetup {
+		// Required for finding the platform contents (Ecore.ecore, Ecore.genmodel, ...) under all circumstances
 		platformUri = "${rootPath}"
+		
+		// Required for finding above mentioned models inside their Eclipse plugins
 		scanClassPath = true
 	}
 	    
+	// As persons.ecore refers to a type inside base.xcore (IPerson extends INamedElement), 
+	// we need to load base.xcore before we can generate persons.ecore.
 	component = org.eclipse.xtext.mwe.Reader {
+		// This configures the supported model types for this Reader.
+		// Order is important.
+		// Should be the same list as beans above.
 		register = org.eclipse.emf.ecore.xcore.XcoreStandaloneSetup {}
 		register = org.eclipse.xtend.core.XtendStandaloneSetup {}
 		register = org.eclipse.xtext.ecore.EcoreSupport {}
 		register = org.eclipse.emf.codegen.ecore.xtext.GenModelSupport {}
 		
+		// This asks the Reader to read all models it understands from these directories (and sub-directories).
 		path = "model"
 		path = "src"
 		
-		loadFromResourceSet =  {
-			
-		}
+		// Put the models inside a ResourceSet that's accessible by the EcoreGenerator.
+		loadFromResourceSet =  {}
 	}
 	
+	// Generate persons.ecore (via persons.genmodel).
 	component = org.eclipse.emf.mwe2.ecore.EcoreGenerator {
 		genModel = "platform:/resource/${projectName}/model/persons.genmodel"
 		srcPath = "platform:/resource/${projectName}/emf-gen"

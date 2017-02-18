@@ -1,12 +1,21 @@
 @GenModel(
 	modelDirectory="de.nikostotz.xtendxcoremaven/xcore-gen",
 	operationReflection="false",
+	
+	// This enables Java generics support in EMF (starting with version 6.0).
+	// If omitted, we'd get a "Validation Problem: The method or field message is undefined" in Maven
+	// because AllGreetings.getGreetings() would return an EList instead of an EList<Greeting>, thus 
+	// we cannot know about the types of the list elements and whether they have a 'message' property.
+	// In other cases, this leads to error messages like "Cannot cast Object to Greeting".
 	complianceLevel="8.0"
 )
 
 package de.nikostotz.xtendxcoremaven.greetings
 
+// referring to Ecore
 import de.nikostotz.xtendxcoremaven.persons.persons.IPerson
+
+// referring to Xtend
 import de.nikostotz.xtendxcoremaven.greetings.helper.GreetingsHelper
 
 annotation "http://www.eclipse.org/emf/2002/GenModel" as GenModel
@@ -16,6 +25,7 @@ class AllGreetings {
 	contains Greeting[] greetings
 	
 	op String compileAllGreetings() {
+		// calling Xtend inside Xcore
 		GreetingsHelper.compileAllGreetings(this)
 	}
 }

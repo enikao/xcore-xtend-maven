@@ -28,6 +28,11 @@ class AllGreetings {
 		// calling Xtend inside Xcore
 		GreetingsHelper.compileAllGreetings(this)
 	}
+	
+	op String compileAllPersons() {
+		// calling Xtend inside Xcore
+		GreetingsHelper.compileAllPersons(this)
+	}
 }
 
 class Greeting {

@@ -37,6 +37,9 @@ Workflow {
 		
 		// Put the models inside a ResourceSet that's accessible by the EcoreGenerator.
 		loadFromResourceSet =  {}
+		
+		// This is a workaround to get GreetingsHelper.compileAllPersons() compiled.
+		validate = org.eclipse.xtext.mwe.Validator.Disabled {}
 	}
 	
 	// Generate persons.ecore (via persons.genmodel).

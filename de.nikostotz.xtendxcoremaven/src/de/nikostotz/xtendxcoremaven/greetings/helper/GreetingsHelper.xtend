@@ -20,13 +20,12 @@ class GreetingsHelper {
 		'''
 	}
 	
-	// This does not work currently with Maven. I didn't figure out why yet, but have some clues:
-	// AllGreetings.getPersons() refers to type IPerson, which is defined in Ecore.
-	// This might not be generated yet when the Xtend generator runs in Maven. 
-//	def static String compileAllPersons(AllGreetings it) {
-//		'''
-//		Hello Humans:
-//			«it.getPersons().map[person | person.describeMyself()].join(", ")»
-//		'''
-//	}
+	def static String compileAllPersons(AllGreetings it) {
+		// AllGreetings.getPersons() refers to type IPerson, which is defined in Ecore.
+		// This only works if we disable the validator in the MWE2 workflow.
+		'''
+		Hello Humans:
+			«it.getPersons().map[person | person.describeMyself()].join(", ")»
+		'''
+	}
 }
